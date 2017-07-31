@@ -1,21 +1,30 @@
-# medicos
+# ControlClin
 
-> A Vue.js project
+> Projeto para controle de pacientes de uma clinica focada em nutricao
 
-## Build Setup
+## TODO
 
-``` bash
-# install dependencies
-npm install
+### Tela de médicos
+- [x] Mostrar todos os médicos
+- [x] Adicionar Médico
+- [x] Deletar Médico
+- [ ] Editar médico
 
-# serve with hot reload at localhost:8080
-npm run dev
+### Tela de programas
+- [ ] Mostrar todos os programas
+- [ ] Adicionar programa
+- [ ] Deletar programa
+- [ ] Editar programa
 
-# build for production with minification
-npm run build
+### Tela de pacientes
+- [x] Mostrar todos os pacientes
+- [ ] Adicionar pacientes
+- [ ] Deletar pacientes
+- [ ] Editar pacientes
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Tela de paciente (paciente em específico)
+- [x] Mostrar gráfico com as medidas do paciente (cintura, quadril e peso)
+- [x] Adicionar novas medidas (cintura, quadril e peso)
+- [x] Listar observações
+- [x] Adicionar novas observações
+- [ ] Deletar observação
