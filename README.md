@@ -2,29 +2,12 @@
 
 > Projeto para controle de pacientes de uma clinica focada em nutricao
 
-## TODO
+## Features
+* Add, remove, update and get a list of all medics and pacients
+* For each pacient
+  * You can add his new sizes (weight, waist and hips)
+  * Have a graph to keep track of his work
+  * Have observations to remind him and you about what que should do next
 
-### Tela de médicos
-- [x] Mostrar todos os médicos
-- [x] Adicionar Médico
-- [x] Deletar Médico
-- [ ] Editar médico
-
-### Tela de programas
-- [ ] Mostrar todos os programas
-- [ ] Adicionar programa
-- [ ] Deletar programa
-- [ ] Editar programa
-
-### Tela de pacientes
-- [x] Mostrar todos os pacientes
-- [ ] Adicionar pacientes
-- [ ] Deletar pacientes
-- [ ] Editar pacientes
-
-## Tela de paciente (paciente em específico)
-- [x] Mostrar gráfico com as medidas do paciente (cintura, quadril e peso)
-- [x] Adicionar novas medidas (cintura, quadril e peso)
-- [x] Listar observações
-- [x] Adicionar novas observações
-- [ ] Deletar observação
+## Contributing
+This project is not open-source (yet) so it will be locked in a private repository. After version 1.0 I can think about forking this project, make the core open-source and let the new features only for the clinic
