@@ -19,7 +19,7 @@
             {{ props.row.area_medica }}
         </b-table-column>
         <b-table-column field="area" label="Ações" sortable>
-          <button class="button is-info">Editar</button>
+          <button class="button is-info" @click="editaMedica(props.row)">Editar</button>
           <button class="button is-danger" @click="deletaMedica(props.row)">Deletar</button>
         </b-table-column>
     </template>
@@ -43,6 +43,9 @@
       }
     },
     methods: {
+      editaMedica (medicaSelecionada) {
+        this.$store.dispatch('formEditaMedicaSelecionada', medicaSelecionada)
+      },
       async deletaMedica (medicaSelecionada) {
         try {
           await this.$store.dispatch('deletaMedicaSelecionada', medicaSelecionada)
@@ -52,7 +55,7 @@
           })
         } catch (e) {
           this.$toast.open({
-            message: 'Erro ao tentar remover a médica, por favor tente novamente',
+            message: 'Erro ao tentar remover médica, por favor tente novamente',
             type: 'is-danger'
           })
         }

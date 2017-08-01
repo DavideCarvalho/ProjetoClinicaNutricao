@@ -20,7 +20,8 @@ header( 'Access-Control-Allow-Methods: POST,GET,OPTIONS,PUT,DELETE' );
 
 Route::get('/medicas', 'MedicaController@pegaListaMedicas');
 Route::post('/medicas', 'MedicaController@adicionaMedica');
-Route::delete('/medicas/{id}', 'MedicaController@deletaMedica');
+Route::delete('/medica/{id}', 'MedicaController@deletaMedica');
+Route::put('/medica/{id}', 'MedicaController@updateMedica');
 
 Route::get('/pacientes', 'PacienteController@pegaListaPacientes');
 Route::post('/pacientes', 'PacienteController@inserePaciente');

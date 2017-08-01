@@ -5,8 +5,11 @@ const state = {
   medicas: [],
   idMedicaSelecionadaObservacao: null,
   novaMedica: {
-    nome: null,
-    area: null
+    id: null,
+    nome_medica: null,
+    area_medica: null,
+    login: null,
+    senha: null
   }
 }
 
@@ -32,11 +35,31 @@ const mutations = {
   },
   'DELETA_MEDICA_SELECIONADA' (state, payload) {
     let todasAsMedicas = state.medicas
-    console.log(payload)
-    console.log(todasAsMedicas)
     todasAsMedicas = todasAsMedicas.filter(medica => medica.id !== payload)
-    console.log(todasAsMedicas)
     state.medicas = todasAsMedicas
+  },
+  'FORM_EDITA_MEDICA_SELECIONADA' (state, payload) {
+    // state.novaMedica = payload will bind the value to my state, changing the row while I change the state
+    // state.novaMedica = payload
+    // Workaround: input each payload field to it correct state
+    state.novaMedica.nome_medica = payload.nome_medica
+    state.novaMedica.area_medica = payload.area_medica
+    state.novaMedica.id = payload.id
+    state.novaMedica.login = payload.login
+    state.novaMedica.senha = payload.senha
+  },
+  'EDITA_MEDICA_SELECIONADA' (state, payload) {
+    let medicas = state.medicas
+    const novaMedica = {
+      id: null,
+      nome_medica: null,
+      area_medica: null,
+      login: null,
+      senha: null
+    }
+    medicas = medicas.filter(medica => { medica.id === payload.id ? medica = payload : '' })
+    state.medicas = medicas
+    state.novaMedica = novaMedica
   }
 }
 
@@ -69,9 +92,22 @@ const actions = {
   },
   deletaMedicaSelecionada: async ({ commit }, payload) => {
     try {
-      let medicaDeletadaId = await Vue.http.delete(`${config.conexao}/medicas/${payload.id}`)
+      let medicaDeletadaId = await Vue.http.delete(`${config.conexao}/medica/${payload.id}`)
       commit('DELETA_MEDICA_SELECIONADA', parseInt(medicaDeletadaId.bodyText))
       return Promise.resolve(medicaDeletadaId)
+    } catch (e) {
+      return Promise.reject(e)
+    }
+  },
+  formEditaMedicaSelecionada: ({ commit }, payload) => {
+    commit('FORM_EDITA_MEDICA_SELECIONADA', payload)
+  },
+  editaMedicaSelecionada: async ({ commit }, payload) => {
+    try {
+      console.log(payload)
+      await Vue.http.put(`${config.conexao}/medica/${payload.id}`, payload)
+      commit('EDITA_MEDICA_SELECIONADA', payload)
+      return Promise.resolve(payload)
     } catch (e) {
       return Promise.reject(e)
     }
@@ -81,8 +117,11 @@ const actions = {
 const getters = {
   medicas: state => state.medicas,
   idMedicaSelecionadaObservacao: state => state.idMedicaSelecionadaObservacao,
-  areaNovaMedica: state => state.novaMedica.area,
-  nomeNovaMedica: state => state.novaMedica.nome
+  areaNovaMedica: state => state.novaMedica.area_medica,
+  nomeNovaMedica: state => state.novaMedica.nome_medica,
+  idNovaMedica: state => state.novaMedica.id,
+  loginNovaMedica: state => state.novaMedica.login,
+  senhaNovaMedica: state => state.novaMedica.senha
 }
 
 export default {

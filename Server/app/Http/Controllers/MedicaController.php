@@ -27,4 +27,14 @@ class MedicaController extends Controller
     return $id;
   }
 
+  public function updateMedica($id) {
+    $medica = Request::all();
+    DB::table('medica')->where('id', $id)->update([
+      'nome_medica' => $medica['nome_medica'],
+      'area_medica' => $medica['area_medica'],
+      'login' => $medica['login'],
+      'senha' => $medica['senha']
+    ]);
+  }
+
 }

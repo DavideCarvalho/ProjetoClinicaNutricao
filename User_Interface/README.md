@@ -4,7 +4,7 @@
 - [x] Mostrar todos os médicos
 - [x] Adicionar Médico
 - [x] Deletar Médico
-- [ ] Editar médico
+- [x] Editar médico
 
 ### Tela de programas
 - [ ] Mostrar todos os programas
