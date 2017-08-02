@@ -41,10 +41,10 @@ return [
 
          'mysql' => [
             'driver'    => 'mysql',
-            'host'      => 'localhost',
-            'database'  => 'nutricao',
-            'username'  => 'root',
-            'password'  => '',
+            'host'      => 'us-cdbr-iron-east-03.cleardb.net',
+            'database'  => 'heroku_379dfa7ea15981d',
+            'username'  => 'b9a6731f335f91',
+            'password'  => '71a3fe99',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
