@@ -1,9 +1,8 @@
 <template>
   <div>
     <nav class="nav has-shadow">
-      <div v-if="selecionarNav === 2" class="nav-left">
+      <div v-if="selectedNavbar === 2" class="nav-left">
         <router-link to="/medicas" class="nav-item is-tab is-hidden-mobile" active-class="is-active" exact>Medicas</router-link>
-        <router-link to="/programas" class="nav-item is-tab is-hidden-mobile" active-class="is-active">Programas</router-link>
         <router-link to="/pacientes" class="nav-item is-tab is-hidden-mobile" active-class="is-active">Pacientes</router-link>
       </div>
       <div v-else class="nav-left">
@@ -43,7 +42,7 @@
       nav () {
         return this.$route.name
       },
-      selecionarNav () {
+      selectedNavbar () {
         if (this.nav === 'Paciente') {
           return 1
         } else {

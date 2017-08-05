@@ -40,13 +40,13 @@ const mutations = {
   },
   'FORM_EDITA_MEDICA_SELECIONADA' (state, payload) {
     // state.novaMedica = payload will bind the value to my state, changing the row while I change the state
-    // state.novaMedica = payload
+    state.novaMedica = {...payload}
     // Workaround: input each payload field to it correct state
-    state.novaMedica.nome_medica = payload.nome_medica
-    state.novaMedica.area_medica = payload.area_medica
-    state.novaMedica.id = payload.id
-    state.novaMedica.login = payload.login
-    state.novaMedica.senha = payload.senha
+    // state.novaMedica.nome_medica = payload.nome_medica
+    // state.novaMedica.area_medica = payload.area_medica
+    // state.novaMedica.id = payload.id
+    // state.novaMedica.login = payload.login
+    // state.novaMedica.senha = payload.senha
   },
   'EDITA_MEDICA_SELECIONADA' (state, payload) {
     let medicas = state.medicas

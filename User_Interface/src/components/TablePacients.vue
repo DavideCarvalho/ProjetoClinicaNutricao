@@ -1,7 +1,7 @@
 <template>
-  <div class='tablePacientes'>
+  <div class='tablePacients'>
    <b-table
-    :data='tabelaPacientes'
+    :data='tablePacients'
     :bordered='false'
     :striped='false'
     :narrowed='false'
@@ -12,9 +12,7 @@
     :pagination-simple='true'
     default-sort='nome_paciente'
     selectable
-    @select="goToPacientUrl"
-    :selected.sync='selectedPacient'
-    :checked-rows.sync='checkedRows'>
+    @select="goToPacientUrl">
        <template scope="props">
         <b-table-column field='nome_paciente' label='Nome do paciente' @click="goToPacienteUrl(props.row)" sortable>
             {{ props.row.nome_paciente }}
@@ -39,7 +37,7 @@
   export default {
     async beforeCreate () {
       try {
-        await this.$store.dispatch('setPacientes')
+        await this.$store.dispatch('setPacients')
       } catch (e) {
         this.$toast.open({
           message: 'Erro ao tentar buscar lista de pacientes, por favor tente recarregar a página',
@@ -47,19 +45,7 @@
         })
       }
     },
-    data () {
-      return {
-        checkedRows: [],
-        selectedPacient: {}
-      }
-    },
     methods: {
-      clearSelected () {
-        this.selected = {}
-      },
-      clearCheckedRows () {
-        this.checkedRows = []
-      },
       goToPacientUrl (selectedPacient) {
         this.$router.push(`/paciente/${selectedPacient.id}`)
       }
@@ -67,7 +53,7 @@
     computed: {
       ...mapGetters([
         'pacientes',
-        'tabelaPacientes'
+        'tablePacients'
       ])
     }
   }

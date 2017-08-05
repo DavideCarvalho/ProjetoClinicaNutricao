@@ -1,45 +1,46 @@
 <template>
-    <div class="modal-card">
-        <form novalidate @submit="enviarMedidas">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Medidas</p>
-            </header>
-            <section class="modal-card-body">
-                <b-field label="Peso">
-                    <b-input
-                        type="text"
-                        placeholder="184"
-                        :value="novoPeso"
-                        @input="setStateNovaMedida({campo:'peso', value:$event})"
-                        required>
-                    </b-input>
-                </b-field>
+  <div class="modal-card">
+    <header class="modal-card-head">
+        <p class="modal-card-title">Medidas</p>
+    </header>
+    <section class="modal-card-body">
+      <form novalidate @submit="enviarMedidas">
+        <b-field label="Peso">
+          <b-input
+              type="text"
+              placeholder="184"
+              :value="novoPeso"
+              @input="setStateNovaMedida({campo:'peso', value:$event})"
+              required>
+          </b-input>
+        </b-field>
 
-                <b-field label="Cintura">
-                    <b-input
-                        type="text"
-                        placeholder="150"
-                        :value="novaCintura"
-                        @input="setStateNovaMedida({campo:'cintura', value:$event})"
-                        required>
-                    </b-input>
-                </b-field>
+        <b-field label="Cintura">
+          <b-input
+              type="text"
+              placeholder="150"
+              :value="novaCintura"
+              @input="setStateNovaMedida({campo:'cintura', value:$event})"
+              required>
+          </b-input>
+        </b-field>
 
-                <b-field label="Quadril">
-                    <b-input
-                        type="text"
-                        placeholder="120"
-                        :value="novoQuadril"
-                        @input="setStateNovaMedida({campo:'quadril', value:$event})"
-                        required>
-                    </b-input>
-                </b-field>
-            </section>
-            <footer class="modal-card-foot">
-                <button :disabled="isDisabled" type="submit" class="button is-primary">Salvar</button>
-            </footer>
-        </form>
-    </div>
+        <b-field label="Quadril">
+          <b-input
+              type="text"
+              placeholder="120"
+              :value="novoQuadril"
+              @input="setStateNovaMedida({campo:'quadril', value:$event})"
+              required>
+          </b-input>
+        </b-field>
+      </form>
+    </section>
+    <footer class="modal-card-foot">
+        <button :disabled="isDisabled" type="submit" class="button is-primary">Salvar</button>
+        <button class="button" type="button" @click="$parent.close()">Fechar</button>
+    </footer>
+  </div>
 </template>
 
 <script>

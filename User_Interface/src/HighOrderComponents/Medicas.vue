@@ -13,9 +13,9 @@
 </template>
 
 <script>
-  import TableMedicas from '../components/TableMedicas'
-  import FormAdicionaMedica from '../components/FormAdicionaMedica'
-  import FormEditaMedica from '../components/FormEditaMedica'
+  import TableMedicas from '@/components/TableMedicas'
+  import FormAdicionaMedica from '@/components/FormAdicionaMedica'
+  import FormEditaMedica from '@/components/FormEditaMedica'
   import { mapGetters } from 'vuex'
   export default {
     components: {

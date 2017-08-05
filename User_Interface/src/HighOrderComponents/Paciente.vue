@@ -39,7 +39,7 @@
 </template>
 
 <script>
-  import CardObservacao from '../components/CardObservacao'
+  import CardObservacao from '@/components/CardObservacao'
   import { mapGetters, mapActions } from 'vuex'
   export default {
     async beforeCreate () {

@@ -9,7 +9,7 @@
             <option v-for="medica in medicas" :key="medica.id" :value="medica.id">{{ medica.nome_medica }}</option>
           </select>
         </span>
-    </p>
+      </p>
     </header>
     <section class="modal-card-body">
       <div class="columns is-multiline">
@@ -23,7 +23,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" @click="adicionaObservacao" :disabled="isDisabled">Salvar</button>
-      <a class="button" @click="fechaModalObservacao">Cancelar</a>
+      <button class="button" type="button" @click="$parent.close()">Fechar</button>
     </footer>
   </div>
 </template>
