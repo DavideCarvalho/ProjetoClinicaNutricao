@@ -6,8 +6,9 @@ const state = {
   searchPacients: null,
   tablePacients: [],
   newPacient: {
+    id: null,
     name: null,
-    sex: null,
+    sex: 'Masculino',
     birth_day: null,
     birth_month: null,
     birth_year: null
@@ -35,6 +36,44 @@ const mutations = {
   },
   'SET_NEW_PACIENT_FIELD' (state, payload) {
     state.newPacient[payload.field] = payload.value
+  },
+  'ADD_NEW_PACIENT' (state, payload) {
+    let allPacients = state.pacients
+    allPacients.push(payload)
+    state.pacients = allPacients
+    state.tablePacients = allPacients
+  },
+  'RESET_NEW_PACIENT_FIELDS' (state) {
+    const newPacient = {
+      id: null,
+      name: null,
+      sex: 'Masculino',
+      birth_day: null,
+      birth_month: null,
+      birth_year: null
+    }
+    state.newPacient = newPacient
+  },
+  'DELETE_PACIENT' (state, payload) {
+    let allPacients = state.pacients
+    allPacients = allPacients.filter(pacient => pacient.id !== payload)
+    state.pacients = allPacients
+    state.tablePacients = allPacients
+  },
+  'ADD_PACIENT_TO_EDIT' (state, payload) {
+    state.newPacient.id = payload.id
+    state.newPacient.name = payload.nome_paciente
+    state.newPacient.sex = payload.sexo_paciente
+    state.newPacient.birth_day = payload.dia_nascimento
+    state.newPacient.birth_month = payload.mes_nascimento
+    state.newPacient.birth_year = payload.ano_nascimento
+  },
+  'EDIT_PACIENT' (state, payload) {
+    let allPacients = state.pacients
+    allPacients = allPacients.filter(pacient => pacient.id !== payload.id)
+    allPacients.push(payload)
+    state.pacients = allPacients
+    state.tablePacients = allPacients
   }
 }
 
@@ -55,6 +94,56 @@ const actions = {
   },
   setNewPacientField: ({ commit }, payload) => {
     commit('SET_NEW_PACIENT_FIELD', payload)
+  },
+  addNewPacient: async ({ commit }, payload) => {
+    try {
+      const newPacientId = await Vue.http.post(`${config.conexao}/pacientes`, payload)
+      payload.id = newPacientId.body
+      let newPayload = {
+        id: newPacientId.body,
+        nome_paciente: payload.newPacientName,
+        sexo_paciente: payload.newPacientSex,
+        dia_nascimento: payload.newPacientBirthDay,
+        mes_nascimento: payload.newPacientBirthMonth,
+        ano_nascimento: payload.newPacientBirthYear
+      }
+      commit('ADD_NEW_PACIENT', newPayload)
+      return Promise.resolve(newPayload)
+    } catch (e) {
+      return Promise.reject(e)
+    }
+  },
+  resetNewPacientFields: ({ commit }) => {
+    commit('RESET_NEW_PACIENT_FIELDS')
+  },
+  deletePacient: async ({ commit }, payload) => {
+    try {
+      let deleted = await Vue.http.delete(`${config.conexao}/paciente/${payload}`)
+      commit('DELETE_PACIENT', payload)
+      return Promise.resolve(deleted)
+    } catch (e) {
+      return Promise.reject(e)
+    }
+  },
+  addPacientToEdit: ({ commit }, payload) => {
+    commit('ADD_PACIENT_TO_EDIT', payload)
+  },
+  editPacient: async ({ commit }, payload) => {
+    try {
+      let updated = await Vue.http.put(`${config.conexao}/paciente/${payload.newPacientId}`, payload)
+      let newPayload = {
+        id: payload.newPacientId,
+        nome_paciente: payload.newPacientName,
+        sexo_paciente: payload.newPacientSex,
+        dia_nascimento: payload.newPacientBirthDay,
+        mes_nascimento: payload.newPacientBirthMonth,
+        ano_nascimento: payload.newPacientBirthYear
+      }
+      commit('EDIT_PACIENT', newPayload)
+      return Promise.resolve(updated)
+    } catch (e) {
+      return Promise.reject(e)
+    }
   }
 }
 
@@ -62,6 +151,7 @@ const getters = {
   pacientes: state => state.pacientes,
   searchPacients: state => state.searchPacients,
   tablePacients: state => state.tablePacients,
+  newPacientId: state => state.newPacient.id,
   newPacientName: state => state.newPacient.name,
   newPacientSex: state => state.newPacient.sex,
   newPacientBirthDay: state => state.newPacient.birth_day,

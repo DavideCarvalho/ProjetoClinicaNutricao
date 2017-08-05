@@ -26,5 +26,7 @@ Route::put('/medica/{id}', 'MedicaController@updateMedica');
 Route::get('/pacientes', 'PacienteController@pegaListaPacientes');
 Route::post('/pacientes', 'PacienteController@inserePaciente');
 Route::get('/paciente/{id}', 'PacienteController@pegaPaciente');
+Route::put('/paciente/{id}', 'PacienteController@alteraPaciente');
+Route::delete('/paciente/{id}', 'PacienteController@deletaPaciente');
 Route::post('/paciente/{id}/medida', 'PacienteController@adicionaMedidaPaciente');
 Route::post('/paciente/{id}/observacao', 'PacienteController@adicionaObservacaoPaciente');

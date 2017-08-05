@@ -27,11 +27,19 @@ const mutations = {
     state.novaMedica[payload.campo] = payload.valor
   },
   'ADICIONA_NOVAMEDICA' (state, payload) {
+    const novaMedica = {
+      id: null,
+      nome_medica: null,
+      area_medica: null,
+      login: null,
+      senha: null
+    }
     let todasAsMedicas = state.medicas
     todasAsMedicas.push(payload)
     state.medicas = todasAsMedicas
     state.novaMedica.nome = null
     state.novaMedica.area = null
+    state.novaMedica = novaMedica
   },
   'DELETA_MEDICA_SELECIONADA' (state, payload) {
     let todasAsMedicas = state.medicas
@@ -49,7 +57,6 @@ const mutations = {
     // state.novaMedica.senha = payload.senha
   },
   'EDITA_MEDICA_SELECIONADA' (state, payload) {
-    let medicas = state.medicas
     const novaMedica = {
       id: null,
       nome_medica: null,
@@ -57,7 +64,9 @@ const mutations = {
       login: null,
       senha: null
     }
-    medicas = medicas.filter(medica => { medica.id === payload.id ? medica = payload : '' })
+    let medicas = state.medicas
+    medicas = medicas.filter(medica => medica.id !== payload.id)
+    medicas.push(payload)
     state.medicas = medicas
     state.novaMedica = novaMedica
   }
@@ -104,7 +113,6 @@ const actions = {
   },
   editaMedicaSelecionada: async ({ commit }, payload) => {
     try {
-      console.log(payload)
       await Vue.http.put(`${config.conexao}/medica/${payload.id}`, payload)
       commit('EDITA_MEDICA_SELECIONADA', payload)
       return Promise.resolve(payload)

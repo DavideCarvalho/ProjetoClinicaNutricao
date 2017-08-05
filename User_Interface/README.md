@@ -1,26 +1,20 @@
 ## TODO
 
-### Tela de médicos
+## Tela de médicos
 - [x] Mostrar todos os médicos
 - [x] Adicionar Médico
 - [x] Deletar Médico
 - [x] Editar médico
 
-### Tela de programas
-- [ ] Mostrar todos os programas
-- [ ] Adicionar programa
-- [ ] Deletar programa
-- [ ] Editar programa
-
-### Tela de pacientes
+## Tela de pacientes
 - [x] Mostrar todos os pacientes
-- [ ] Adicionar pacientes
-- [ ] Deletar pacientes
-- [ ] Editar pacientes
+- [x] Adicionar paciente
+- [x] Deletar pacientes
+- [x] Editar pacientes
 
-## Tela de paciente (paciente em específico)
+## Tela de paciente
 - [x] Mostrar gráfico com as medidas do paciente (cintura, quadril e peso)
 - [x] Adicionar novas medidas (cintura, quadril e peso)
 - [x] Listar observações
 - [x] Adicionar novas observações
-- [ ] Deletar observação
+- [ ] Deletar observação (apenas observação feita no dia)

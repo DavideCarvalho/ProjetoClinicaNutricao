@@ -1,7 +1,7 @@
 <template>
   <div class="pacientes">
     <div class="columns">
-      <div class="column is-offset-one-quarter is-half">
+      <div class="column is-offset-2 is-8">
         <br>
         <h1 class="title">Pacientes</h1>
         <div class="columns">
@@ -14,7 +14,7 @@
             <br />
             <b-tooltip label="Adicionar paciente" animated>
               <button class="button is-primary" @click="isNewPacientModalActive = true">+</button>
-              <b-modal :active.sync="isNewPacientModalActive" :width="650">
+              <b-modal :active.sync="isNewPacientModalActive" :width="650" :onCancel="resetNewPacientFields">
                 <NewPacientModal />
               </b-modal>
             </b-tooltip>
@@ -42,7 +42,8 @@
     },
     methods: {
       ...mapActions([
-        'setSearchPacients'
+        'setSearchPacients',
+        'resetNewPacientFields'
       ])
     },
     computed: {

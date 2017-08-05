@@ -37,7 +37,18 @@ export default {
         senha: this.senhaNovaMedica,
         login: this.loginNovaMedica
       }
-      await this.$store.dispatch('editaMedicaSelecionada', payload)
+      try {
+        await this.$store.dispatch('editaMedicaSelecionada', payload)
+        this.$toast.open({
+          message: 'Medica editada com sucesso!',
+          type: 'is-success'
+        })
+      } catch (e) {
+        this.$toast.open({
+          message: 'Erro ao tentar editar médica, por favor tente novamente',
+          type: 'is-danger'
+        })
+      }
     }
   },
   computed: {

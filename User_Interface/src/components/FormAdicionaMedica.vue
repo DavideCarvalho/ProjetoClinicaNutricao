@@ -18,12 +18,18 @@
         <button type="submit" class="button is-primary is-fullwidth">Adicionar nova médica</button>
       </div>
     </form>
+    <b-loading :active.sync="isLoading"></b-loading>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 export default {
+  data () {
+    return {
+      isLoading: false
+    }
+  },
   methods: {
     ...mapActions([
       'setCampoNovaMedica'
@@ -35,12 +41,15 @@ export default {
         area_medica: areaNovaMedica
       }
       try {
+        this.isLoading = true
         await this.$store.dispatch('adicionaNovaMedica', payload)
+        this.isLoading = false
         this.$toast.open({
           message: 'Medica adicionada com sucesso!',
           type: 'is-success'
         })
       } catch (e) {
+        this.isLoading = false
         this.$toast.open({
           message: 'Erro ao tentar adicionar a médica, por favor tente novamente',
           type: 'is-danger'

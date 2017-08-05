@@ -24,6 +24,7 @@
         </b-table-column>
     </template>
     </b-table>
+    <b-loading :active.sync="isLoading"></b-loading>
   </div>
 </template>
 
@@ -33,13 +34,21 @@
     async beforeCreate () {
       if (!this.medicas) {
         try {
+          this.isLoading = true
           await this.$store.dispatch('setMedicasInicial')
+          this.isLoading = false
         } catch (e) {
+          this.isLoading = false
           this.$toast.open({
             message: 'Erro ao tentar buscar lista com as médicas, por favor tente novamente',
             type: 'is-danger'
           })
         }
+      }
+    },
+    data () {
+      return {
+        isLoading: false
       }
     },
     methods: {
@@ -48,12 +57,15 @@
       },
       async deletaMedica (medicaSelecionada) {
         try {
+          this.isLoading = true
           await this.$store.dispatch('deletaMedicaSelecionada', medicaSelecionada)
+          this.isLoading = false
           this.$toast.open({
             message: 'Medica removida com sucesso!',
             type: 'is-success'
           })
         } catch (e) {
+          this.isLoading = false
           this.$toast.open({
             message: 'Erro ao tentar remover médica, por favor tente novamente',
             type: 'is-danger'

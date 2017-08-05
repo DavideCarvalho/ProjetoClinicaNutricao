@@ -14,9 +14,30 @@ class PacienteController extends Controller
     public function inserePaciente() {
       $paciente = Request::all();
       $id = DB::table('paciente')->insertGetId([
-        'nome_paciente' => $paciente['nome_paciente']
+        'nome_paciente' => $paciente['newPacientName'],
+        'sexo_paciente' => $paciente['newPacientSex'],
+        'dia_nascimento' => $paciente['newPacientBirthDay'],
+        'mes_nascimento' => $paciente['newPacientBirthMonth'],
+        'ano_nascimento' => $paciente['newPacientBirthYear']
       ]);
       return $id;
+    }
+
+    public function alteraPaciente($id) {
+      $paciente = Request::all();
+      $updated = DB::table('paciente')->where('id', '=', $id)->update([
+        'nome_paciente' => $paciente['newPacientName'],
+        'sexo_paciente' => $paciente['newPacientSex'],
+        'dia_nascimento' => $paciente['newPacientBirthDay'],
+        'mes_nascimento' => $paciente['newPacientBirthMonth'],
+        'ano_nascimento' => $paciente['newPacientBirthYear']
+      ]);
+      return $updated;
+    }
+
+    public function deletaPaciente($id) {
+      $deleted = DB::table('paciente')->where('id', '=', $id)->delete();
+      return $deleted;
     }
 
     public function pegaPaciente($id) {
