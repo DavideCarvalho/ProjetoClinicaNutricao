@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Paciente from '@/HighOrderComponents/Paciente'
 import Pacientes from '@/HighOrderComponents/Pacientes'
 import Medicas from '@/HighOrderComponents/Medicas'
+import Login from '@/HighOrderComponents/Login'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/medicas',
       name: 'Medicas',
       component: Medicas
+    },
+    {
+      path: '/',
+      name: 'Login',
+      component: Login
     }
   ]
 })

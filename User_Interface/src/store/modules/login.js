@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import config from '../config'
+// import Vue from 'vue'
+// import config from '../config'
 
 const state = {
   login: null,
@@ -16,17 +16,12 @@ const actions = {
   setInput: ({ commit }, payload) => {
     commit('SET_INPUT', payload)
   },
-  logar: ({ commit }, usuario) => {
-    return new Promise((resolve, reject) => {
-      Vue.http.get(`${config.conexao}/back/login.php?login=${usuario.login}&senha=${usuario.senha}`)
-      .then(response => response.json())
-      .then(
-      data => {
-        !data.length ? reject(false) : resolve(true)
-      },
-      error => console.log(JSON.stringify(error))
-      )
-    })
+  logar: async ({ commit }, usuario) => {
+    if (usuario.login === 'admin' && usuario.senha === 'admin') {
+      return Promise.resolve()
+    } else {
+      return Promise.reject()
+    }
   }
 }
 

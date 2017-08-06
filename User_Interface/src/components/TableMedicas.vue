@@ -31,8 +31,8 @@
 <script>
   import { mapGetters } from 'vuex'
   export default {
-    async beforeCreate () {
-      if (!this.medicas) {
+    async mounted () {
+      if (!this.medicas.length) {
         try {
           this.isLoading = true
           await this.$store.dispatch('setMedicasInicial')

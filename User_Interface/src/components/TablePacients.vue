@@ -63,9 +63,11 @@
   import { mapActions, mapGetters } from 'vuex'
   import NewPacientModal from '@/components/NewPacientModal'
   export default {
-    async beforeCreate () {
+    async mounted () {
       try {
+        this.isLoading = true
         await this.$store.dispatch('setPacients')
+        this.isLoading = false
       } catch (e) {
         this.$toast.open({
           message: 'Erro ao tentar buscar lista de pacientes, por favor tente recarregar a página',

@@ -43,7 +43,7 @@
 import CardObservacao from '@/components/CardObservacao'
 import { mapGetters, mapActions } from 'vuex'
 export default {
-  async beforeCreate () {
+  async mounted () {
     try {
       this.isLoading = true
       await this.$store.dispatch('setPaciente', this.$route.params.id)
