@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="column">
-        <button type="submit" class="button is-primary is-fullwidth">Adicionar nova médica</button>
+        <button type="submit" :disabled="isDisabled" class="button is-primary is-fullwidth">Adicionar nova médica</button>
       </div>
     </form>
     <b-loading :active.sync="isLoading"></b-loading>
@@ -61,7 +61,14 @@ export default {
     ...mapGetters([
       'nomeNovaMedica',
       'areaNovaMedica'
-    ])
+    ]),
+    isDisabled () {
+      if (!this.nomeNovaMedica || !this.areaNovaMedica) {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 </script>

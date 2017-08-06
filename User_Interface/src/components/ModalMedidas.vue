@@ -40,12 +40,18 @@
           <button class="button" type="button" @click="$parent.close()">Fechar</button>
       </footer>
     </form>
+    <b-loading :active.sync="isLoading"></b-loading>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 export default {
+  data () {
+    return {
+      isLoading: false
+    }
+  },
   methods: {
     ...mapActions([
       'setStateNovaMedida'
@@ -70,12 +76,15 @@ export default {
         ano: ano
       }
       try {
+        this.isLoading = true
         await this.$store.dispatch('adicionarMedida', payload)
+        this.isLoading = false
         this.$toast.open({
           message: 'Medidas adicionadas com sucesso!',
           type: 'is-success'
         })
       } catch (e) {
+        this.isLoading = false
         this.$toast.open({
           message: 'Erro ao tentar adicionar as medidas, por favor tente novamente',
           type: 'is-danger'

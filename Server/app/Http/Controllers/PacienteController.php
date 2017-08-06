@@ -91,4 +91,9 @@ class PacienteController extends Controller
 
       return $observacao;
     }
+
+    public function deletaObservacaoPaciente($id) {
+      $deleted = DB::table('observacao')->where('id', '=', $id)->delete();
+      return $deleted;
+    }
 }

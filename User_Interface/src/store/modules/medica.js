@@ -47,14 +47,7 @@ const mutations = {
     state.medicas = todasAsMedicas
   },
   'FORM_EDITA_MEDICA_SELECIONADA' (state, payload) {
-    // state.novaMedica = payload will bind the value to my state, changing the row while I change the state
     state.novaMedica = {...payload}
-    // Workaround: input each payload field to it correct state
-    // state.novaMedica.nome_medica = payload.nome_medica
-    // state.novaMedica.area_medica = payload.area_medica
-    // state.novaMedica.id = payload.id
-    // state.novaMedica.login = payload.login
-    // state.novaMedica.senha = payload.senha
   },
   'EDITA_MEDICA_SELECIONADA' (state, payload) {
     const novaMedica = {
@@ -102,7 +95,7 @@ const actions = {
   deletaMedicaSelecionada: async ({ commit }, payload) => {
     try {
       let medicaDeletadaId = await Vue.http.delete(`${config.conexao}/medica/${payload.id}`)
-      commit('DELETA_MEDICA_SELECIONADA', parseInt(medicaDeletadaId.bodyText))
+      commit('DELETA_MEDICA_SELECIONADA', payload.id)
       return Promise.resolve(medicaDeletadaId)
     } catch (e) {
       return Promise.reject(e)

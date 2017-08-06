@@ -19,5 +19,9 @@
 - [x] Adicionar novas medidas (cintura, quadril e peso)
 - [x] Listar observações
 - [x] Adicionar novas observações
-- [ ] Deletar observação (apenas observação feita no dia)
-- [ ] Adicionar loading em todos os ajax
+- [x] Deletar observação (apenas observação feita no dia)
+- [x] Adicionar loading em todos os ajax
+- [x] Inves de resetar o grafico de paciente ao entrar na tela, resetar ao apertar voltar
+
+## Tela de login
+- [ ] Checar se no projeto antigo a tela de login já está pronta

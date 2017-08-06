@@ -87,6 +87,7 @@
         'resetNewPacientFields'
       ]),
       goToPacientUrl (selectedPacient) {
+        this.$store.dispatch('resetaPaciente')
         this.$router.push(`/paciente/${selectedPacient.id}`)
       },
       async deletePacient (pacientId) {

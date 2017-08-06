@@ -28,52 +28,60 @@
             </div>
           </div>
           <div class="column is-2"></div>
-          <div v-for="observacao in observacoes" class="column is-3" :key="observacao">
+          <div v-for="observacao in observacoes" class="column is-3" :key="observacao.id">
             <CardObservacao :observacao="observacao" />
           </div>
         </div>
       </div>
     </div>
+    <b-loading :active.sync="isLoading"></b-loading>
   </div>
 
 </template>
 
 <script>
-  import CardObservacao from '@/components/CardObservacao'
-  import { mapGetters, mapActions } from 'vuex'
-  export default {
-    async beforeCreate () {
-      try {
-        await this.$store.dispatch('setPaciente', this.$route.params.id)
-      } catch (e) {
-        this.$toast.open({
-          message: 'Erro ao tentar buscar informações do paciente, por favor recarregue a página',
-          type: 'is-danger'
-        })
-      }
-    },
-    components: {
-      CardObservacao
-    },
-    methods: {
-      ...mapActions([
-        'trocarCheckBox',
-        'selecionaObservacao'
-      ])
-    },
-    computed: {
-      ...mapGetters([
-        'paciente',
-        'observacoes',
-        'valoresGrafico',
-        'checkPeso',
-        'checkQuadril',
-        'checkCintura',
-        'observacaoSelecionada'
-      ])
+import CardObservacao from '@/components/CardObservacao'
+import { mapGetters, mapActions } from 'vuex'
+export default {
+  async beforeCreate () {
+    try {
+      this.isLoading = true
+      await this.$store.dispatch('setPaciente', this.$route.params.id)
+      this.isLoading = false
+    } catch (e) {
+      this.isLoading = false
+      this.$toast.open({
+        message: 'Erro ao tentar buscar informações do paciente, por favor recarregue a página',
+        type: 'is-danger'
+      })
     }
+  },
+  data () {
+    return {
+      isLoading: false
+    }
+  },
+  components: {
+    CardObservacao
+  },
+  methods: {
+    ...mapActions([
+      'trocarCheckBox',
+      'selecionaObservacao'
+    ])
+  },
+  computed: {
+    ...mapGetters([
+      'paciente',
+      'observacoes',
+      'valoresGrafico',
+      'checkPeso',
+      'checkQuadril',
+      'checkCintura',
+      'observacaoSelecionada'
+    ])
   }
-
+}
 </script>
 
 

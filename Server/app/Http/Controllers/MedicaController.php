@@ -23,7 +23,7 @@ class MedicaController extends Controller
   }
 
   public function deletaMedica($id) {
-    DB::table('medica')->where('id', '=', $id)->delete();
+    $id = DB::table('medica')->where('id', '=', $id)->delete();
     return $id;
   }
 
@@ -31,9 +31,7 @@ class MedicaController extends Controller
     $medica = Request::all();
     DB::table('medica')->where('id', $id)->update([
       'nome_medica' => $medica['nome_medica'],
-      'area_medica' => $medica['area_medica'],
-      'login' => $medica['login'],
-      'senha' => $medica['senha']
+      'area_medica' => $medica['area_medica']
     ]);
   }
 

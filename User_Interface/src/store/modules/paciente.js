@@ -32,7 +32,7 @@ const state = {
 }
 
 const mutations = {
-  'SET_PACIENTE_INICIAL' (state, payload) {
+  'RESETAR_CAMPOS_PACIENTE' (state) {
     state.paciente.nomePaciente = null
     state.paciente.id = null
     state.pesoGrafico.data = []
@@ -47,6 +47,8 @@ const mutations = {
     state.novaMedida.cinture = null
     state.novaMedida.quadril = null
     state.novaObservacao = null
+  },
+  'SET_PACIENTE_INICIAL' (state, payload) {
     state.paciente.nomePaciente = payload.nomePaciente
     state.paciente.id = payload.id
     state.observacoes = payload.observacoes
@@ -199,10 +201,19 @@ const mutations = {
     observacoes.unshift(novaObservacao)
     state.observacoes = observacoes
     state.novaObservacao = null
+  },
+  'DELETA_OBSERVACAO' (state, payload) {
+    let observacoes = state.observacoes
+    let index = observacoes.indexOf(payload)
+    observacoes.splice(index, 1)
+    state.observacoes = observacoes
   }
 }
 
 const actions = {
+  resetaPaciente: ({ commit }) => {
+    commit('RESETAR_CAMPOS_PACIENTE')
+  },
   setPaciente: async ({ commit }, id) => {
     try {
       let paciente = await Vue.http.get(`${config.conexao}/paciente/${id}`)
@@ -221,7 +232,6 @@ const actions = {
   },
   adicionarMedida: async ({ commit }, payload) => {
     try {
-      console.log(payload)
       let paciente = await Vue.http.post(`${config.conexao}/paciente/${payload.id}/medida`, payload)
       payload.idMedida = paciente.body
       commit('ADICIONA_NOVAMEDIDA', payload)
@@ -238,11 +248,19 @@ const actions = {
   },
   adicionarObservacao: async ({ commit }, payload) => {
     try {
-      console.log(payload)
       let observacao = await Vue.http.post(`${config.conexao}/paciente/${payload.id_paciente}/observacao`, payload)
       observacao = JSON.parse(observacao.bodyText)
       commit('ADICIONA_NOVAOBSERVACAO', observacao[0])
       return Promise.resolve(observacao[0])
+    } catch (e) {
+      return Promise.reject(e)
+    }
+  },
+  deletaObservacao: async ({ commit }, payload) => {
+    try {
+      await Vue.http.delete(`${config.conexao}/observacao/${payload.id}`)
+      commit('DELETA_OBSERVACAO', payload)
+      return Promise.resolve(payload)
     } catch (e) {
       return Promise.reject(e)
     }

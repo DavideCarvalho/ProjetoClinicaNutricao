@@ -25,6 +25,7 @@
       <button class="button is-success" @click="adicionaObservacao" :disabled="isDisabled">Salvar</button>
       <button class="button" type="button" @click="$parent.close()">Fechar</button>
     </footer>
+    <b-loading :active.sync="isLoading"></b-loading>
   </div>
 </template>
 
@@ -34,14 +35,16 @@
     beforeCreate () {
       this.$store.dispatch('setMedicasInicial')
     },
+    data () {
+      return {
+        isLoading: false
+      }
+    },
     methods: {
       ...mapActions([
         'setState',
         'setIdMedicaSelecionadaObservacao'
       ]),
-      fechaModalObservacao () {
-        this.$modal.hide('modal_observacao')
-      },
       async adicionaObservacao () {
         let data = new Date()
         let dia = data.getMonth() < 9 ? dia = `${data.getDate()}` : dia = data.getDate()
@@ -58,12 +61,15 @@
           id_medica: this.idMedicaSelecionadaObservacao
         }
         try {
+          this.isLoading = true
           await this.$store.dispatch('adicionarObservacao', payload)
+          this.isLoading = false
           this.$toast.open({
             message: 'Observação adicionada com sucesso!',
             type: 'is-success'
           })
         } catch (e) {
+          this.isLoading = false
           this.$toast.open({
             message: 'Erro ao tentar adicionar a observação, por favor tente novamente',
             type: 'is-danger'
