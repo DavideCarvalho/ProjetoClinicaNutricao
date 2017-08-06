@@ -43,6 +43,9 @@
 import CardObservacao from '@/components/CardObservacao'
 import { mapGetters, mapActions } from 'vuex'
 export default {
+  beforeMount () {
+    !this.logado ? this.$router.push('/') : ''
+  },
   async mounted () {
     try {
       this.isLoading = true
@@ -78,7 +81,8 @@ export default {
       'checkPeso',
       'checkQuadril',
       'checkCintura',
-      'observacaoSelecionada'
+      'observacaoSelecionada',
+      'logado'
     ])
   }
 }

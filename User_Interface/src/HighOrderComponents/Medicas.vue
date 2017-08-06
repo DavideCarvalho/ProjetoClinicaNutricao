@@ -18,6 +18,9 @@
   import FormEditaMedica from '@/components/FormEditaMedica'
   import { mapGetters } from 'vuex'
   export default {
+    beforeMount () {
+      !this.logado ? this.$router.push('/') : ''
+    },
     components: {
       TableMedicas,
       FormAdicionaMedica,
@@ -25,7 +28,8 @@
     },
     computed: {
       ...mapGetters([
-        'idNovaMedica'
+        'idNovaMedica',
+        'logado'
       ])
     }
   }

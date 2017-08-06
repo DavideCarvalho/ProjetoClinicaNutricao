@@ -31,6 +31,9 @@
   import NewPacientModal from '@/components/NewPacientModal'
   import { mapGetters, mapActions } from 'vuex'
   export default {
+    beforeMount () {
+      !this.logado ? this.$router.push('/') : ''
+    },
     data () {
       return {
         isNewPacientModalActive: false
@@ -48,7 +51,8 @@
     },
     computed: {
       ...mapGetters([
-        'searchPacients'
+        'searchPacients',
+        'logado'
       ])
     }
   }

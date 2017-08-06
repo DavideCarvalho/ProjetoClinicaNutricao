@@ -3,12 +3,18 @@
 
 const state = {
   login: null,
-  senha: null
+  senha: null,
+  logado: false
 }
 
 const mutations = {
   'SET_INPUT' (state, payload) {
     state[payload.campo] = payload.valor
+  },
+  'LOGADO' (state) {
+    state.logado = true
+    state.login = null
+    state.senha = null
   }
 }
 
@@ -18,6 +24,7 @@ const actions = {
   },
   logar: async ({ commit }, usuario) => {
     if (usuario.login === 'admin' && usuario.senha === 'admin') {
+      commit('LOGADO')
       return Promise.resolve()
     } else {
       return Promise.reject()
@@ -27,7 +34,8 @@ const actions = {
 
 const getters = {
   login: state => state.login,
-  senha: state => state.senha
+  senha: state => state.senha,
+  logado: state => state.logado
 }
 
 export default {
