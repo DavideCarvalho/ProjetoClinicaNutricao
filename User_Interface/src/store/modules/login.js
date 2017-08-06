@@ -15,6 +15,9 @@ const mutations = {
     state.logado = true
     state.login = null
     state.senha = null
+  },
+  'SAIR' (state) {
+    state.logado = false
   }
 }
 
@@ -29,6 +32,9 @@ const actions = {
     } else {
       return Promise.reject()
     }
+  },
+  sair: ({ commit }) => {
+    commit('sair')
   }
 }
 

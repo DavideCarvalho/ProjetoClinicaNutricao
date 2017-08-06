@@ -19,6 +19,11 @@
           <ModalObservacao />
         </b-modal>
       </div>
+      <div class="navbar-end">
+        <a class="nav-item is-tab" @click="sair">
+          Sair
+        </a>
+      </div>
     </nav>
   </div>
 </template>
@@ -37,6 +42,12 @@
     components: {
       ModalObservacao,
       ModalMedidas
+    },
+    methods: {
+      sair () {
+        this.$store.commit('sair')
+        this.$router.push('/')
+      }
     },
     computed: {
       nav () {
