@@ -13,11 +13,18 @@
               </b-field>
             </div>
             <div class="column is-half">
-              <b-field label="Sexo">
-                <b-radio-group :value="newPacientSex" @change="setNewPacientField({field: 'sex', value:$event})">
-                  <b-radio value="Masculino">Masculino</b-radio>
-                  <b-radio value="Feminino">Feminino</b-radio>
-                </b-radio-group>
+              <label class="label">Sexo</label>
+              <b-field>
+                <b-radio-button :value="newPacientSex"
+                    native-value="Masculino"
+                    @change.native="setNewPacientField({field: 'sex', value:$event.target.value})">
+                    <span>Masculino</span>
+                </b-radio-button>
+                <b-radio-button :value="newPacientSex"
+                    native-value="Feminino"
+                    @change.native="setNewPacientField({field: 'sex', value:$event.target.value})">
+                    <span>Feminino</span>
+                </b-radio-button>
               </b-field>
             </div>
             <div class="column is-one-third">

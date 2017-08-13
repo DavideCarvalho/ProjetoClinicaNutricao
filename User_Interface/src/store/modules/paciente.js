@@ -3,8 +3,13 @@ import config from '../config'
 
 const state = {
   paciente: {
+    id: null,
     nomePaciente: null,
-    id: null
+    sexoPaciente: null,
+    diaNascimento: null,
+    mesNascimento: null,
+    anoNascimento: null,
+    fotoPaciente: null
   },
   pesoGrafico: {
     name: 'Peso',
@@ -49,8 +54,13 @@ const mutations = {
     state.novaObservacao = null
   },
   'SET_PACIENTE_INICIAL' (state, payload) {
-    state.paciente.nomePaciente = payload.nomePaciente
     state.paciente.id = payload.id
+    state.paciente.nomePaciente = payload.nomePaciente
+    state.paciente.sexoPaciente = payload.sexoPaciente
+    state.paciente.diaNascimento = payload.diaNascimento
+    state.paciente.mesNascimento = payload.mesNascimento
+    state.paciente.anoNascimento = payload.anoNascimento
+    state.paciente.fotoPaciente = payload.fotoPaciente
     state.observacoes = payload.observacoes
     let quadrilPaciente = {}
     quadrilPaciente.data = []
@@ -207,6 +217,11 @@ const mutations = {
     let index = observacoes.indexOf(payload)
     observacoes.splice(index, 1)
     state.observacoes = observacoes
+  },
+  'TROCA_FOTO' (state, payload) {
+    let paciente = { ...state.paciente }
+    paciente.fotoPaciente = payload.foto
+    state.paciente = { ...paciente }
   }
 }
 
@@ -220,6 +235,11 @@ const actions = {
       paciente = paciente.data
       paciente.nomePaciente = paciente[0].nome_paciente
       paciente.id = paciente[0].id
+      paciente.sexoPaciente = paciente[0].sexo_paciente
+      paciente.diaNascimento = paciente[0].dia_nascimento
+      paciente.mesNascimento = paciente[0].mes_nascimento
+      paciente.anoNascimento = paciente[0].ano_nascimento
+      paciente.fotoPaciente = paciente[0].foto_paciente
       delete paciente[0]
       commit('SET_PACIENTE_INICIAL', paciente)
       return Promise.resolve(paciente)
@@ -263,6 +283,15 @@ const actions = {
       return Promise.resolve(payload)
     } catch (e) {
       return Promise.reject(e)
+    }
+  },
+  trocarFoto: async ({ commit }, payload) => {
+    try {
+      await Vue.http.put(`${config.conexao}/paciente/${payload.id}/foto`, {base64: payload.foto})
+      commit('TROCA_FOTO', payload)
+      return Promise.resolve(payload)
+    } catch (e) {
+      return Promise.reject(payload)
     }
   }
 }

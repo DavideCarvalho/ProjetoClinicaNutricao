@@ -30,4 +30,5 @@ Route::put('/paciente/{id}', 'PacienteController@alteraPaciente');
 Route::delete('/paciente/{id}', 'PacienteController@deletaPaciente');
 Route::post('/paciente/{id}/medida', 'PacienteController@adicionaMedidaPaciente');
 Route::post('/paciente/{id}/observacao', 'PacienteController@adicionaObservacaoPaciente');
+Route::put('/paciente/{id}/foto', 'PacienteController@trocaFotoPaciente');
 Route::delete('/observacao/{id}', 'PacienteController@deletaObservacaoPaciente');

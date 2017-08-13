@@ -3,12 +3,38 @@
     <div class='columns'>
       <div class='column is-one-quarter lateral'>
         <aside class='menu'>
-          <p class='menu-label'>{{ paciente.nomePaciente }}</p>
+          <p class='sidebar-title'>{{ paciente.nomePaciente }}</p>
           <div class="columns">
             <div class="column is-half is-offset-one-quarter">
-              <figure style="margin-left:10px;" class="image is-128x128">
-                <img style="border-radius:50%" src="http://bulma.io/images/placeholders/128x128.png">
+              <figure v-if="file" class="image is-128x128 is-round">
+                <img :src="file.base64" class="is-round">
               </figure>
+              <figure v-else class="image is-128x128">
+                <img :src="paciente.fotoPaciente" class="is-round">
+              </figure>
+              <div class="file purple-background">
+                <label class="file-label">
+                  <file-base64 class="file-input" :multiple="true" :done="getFiles" accept="image/*"></file-base64>
+                  <span class="file-cta purple-background">
+                    <span class="file-icon">
+                      <i class="fa fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Mudar foto
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <label class="label">Sexo</label>
+              <p class='sidebar-text'>{{ paciente.sexoPaciente }}</p>
+            </div>
+            <div class="column">
+              <label class="label">Data de Nascimento</label>
+              <p class='sidebar-text'>{{ new Date(paciente.anoNascimento, paciente.mesNascimento - 1, paciente.diaNascimento).toLocaleDateString() }}</p>
             </div>
           </div>
         </aside>
@@ -42,6 +68,7 @@
 <script>
 import CardObservacao from '@/components/CardObservacao'
 import { mapGetters, mapActions } from 'vuex'
+import fileBase64 from 'vue-file-base64'
 export default {
   beforeMount () {
     !this.logado ? this.$router.push('/') : ''
@@ -61,17 +88,49 @@ export default {
   },
   data () {
     return {
-      isLoading: false
+      isLoading: false,
+      file: null
     }
   },
   components: {
-    CardObservacao
+    CardObservacao,
+    fileBase64
   },
   methods: {
     ...mapActions([
       'trocarCheckBox',
       'selecionaObservacao'
-    ])
+    ]),
+    async getFiles (files) {
+      this.isLoading = true
+      let imageType = files[0].type.split('/')
+      if (imageType[0] !== 'image') {
+        this.$toast.open({
+          message: 'Apenas imagens podem ser usados como fotos de perfil',
+          type: 'is-danger'
+        })
+        this.isLoading = false
+        return
+      }
+      const payload = {
+        id: this.paciente.id,
+        foto: files[0].base64
+      }
+      try {
+        this.isLoading = false
+        await this.$store.dispatch('trocarFoto', payload)
+        this.$toast.open({
+          message: 'Foto trocada com sucesso!',
+          type: 'is-success'
+        })
+      } catch (e) {
+        this.isLoading = false
+        this.$toast.open({
+          message: 'Erro ao tentar trocar de foto, por favor tente novamente',
+          type: 'is-danger'
+        })
+      }
+    }
   },
   computed: {
     ...mapGetters([
@@ -90,8 +149,13 @@ export default {
 
 
 <style lang='stylus' scoped>
-  .menu-label
+  .sidebar-title
     font-size: 20px
+    color: white
+    text-transform: uppercase
+  .sidebar-text
+    font-size: 18px
+    color: white
   .alunos
     min-height: 100vh
   .lateral
@@ -100,4 +164,11 @@ export default {
     background-color: #67AC44
     height: 100vh
     margin-top: 10px
+  .is-round
+    border-radius: 50%
+  .purple-background
+    background-color: #7957D5
+    border-color: #7957D5
+    &:hover
+      background-color: #7957D5
 </style>
