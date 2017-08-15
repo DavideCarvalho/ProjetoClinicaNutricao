@@ -48,9 +48,9 @@
           </div>
           <div class="column is-half is-offset-4">
             <div class="block">
-              <b-checkbox :value="checkPeso" @change="trocarCheckBox({campo:'checkPeso', valor:checkPeso})">Peso</b-checkbox>
-              <b-checkbox :value="checkQuadril" @change="trocarCheckBox({campo:'checkQuadril', valor:checkQuadril})">Quadril</b-checkbox>
-              <b-checkbox :value="checkCintura" @change="trocarCheckBox({campo:'checkCintura', valor:checkCintura})">Cintura</b-checkbox>
+              <b-checkbox :value="checkPeso" @change.native="trocarCheckBox({campo:'checkPeso', valor:checkPeso})">Peso</b-checkbox>
+              <b-checkbox :value="checkQuadril" @change.native="trocarCheckBox({campo:'checkQuadril', valor:checkQuadril})">Quadril</b-checkbox>
+              <b-checkbox :value="checkCintura" @change.native="trocarCheckBox({campo:'checkCintura', valor:checkCintura})">Cintura</b-checkbox>
             </div>
           </div>
           <div class="column is-2"></div>
